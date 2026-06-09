@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Service Report & Bill</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #fff;
+        }
+        /* Outer Decorative Border with Corners */
+        .page-wrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 35px;
+            box-sizing: border-box;
+            border: 8px solid #f4f6f7;
+            outline: 2px solid #5bb2a7;
+            outline-offset: -10px;
+        }
+        
+        /* HEADER SECTION */
+        .logo-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .logo-text {
+            font-size: 38px;
+            font-weight: 900;
+            color: #1a5276;
+            margin: 0;
+            letter-spacing: -1px;
+        }
+        .logo-text span {
+            color: #27ae60;
+        }
+        .tagline {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2874a6;
+            margin: 5px 0 0 0;
+        }
+
+        /* COMPANY INFO */
+        .company-table {
+            width: 100%;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .company-name {
+            font-size: 15px;
+            color: #222;
+        }
+        .company-sub {
+            color: #666;
+        }
+
+        /* BLUE BANNER */
+        .title-banner {
+            background-color: #d6eaf8;
+            color: #154360;
+            text-align: center;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 800;
+            border-top: 2px solid #aed6f1;
+            border-bottom: 2px solid #aed6f1;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        /* SECTION HEADERS (Graduated Blue with Icons) */
+        .section-header {
+            background: #73a9c2; /* Solid fallback */
+            background: linear-gradient(to right, #6299b8, #85c1e9);
+            color: #fff;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 5px 5px 0 0;
+            margin-bottom: 0px;
+        }
+        .section-icon { margin-right: 8px; font-weight: normal; }
+
+        /* DATA TABLES inside sections */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .data-table td {
+            padding: 6px 0;
+            vertical-align: bottom;
+        }
+        .label-cell {
+            color: #555;
+            width: 1%;
+            white-space: nowrap;
+            padding-right: 10px;
+        }
+        .value-cell {
+            color: #111;
+            font-weight: 600;
+            border-bottom: 1px dotted #aab7b8;
+            width: 49%;
+            padding-left: 5px;
+        }
+
+        /* TIMELINE SECTION */
+        .timeline-table {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+        .timeline-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            margin: 0 auto;
+            line-height: 18px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        /* NEW: Time Label styling */
+        .time-label { 
+            font-size: 10px; 
+            color: #888; 
+            margin-top: 4px; 
+            font-weight: normal; 
+        }
+
+        /* SPLIT COLUMNS (Billing & Payment) */
+        .split-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .data-box {
+            border: 1px solid #d5d8dc;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            background-color: #fdfdfd;
+        }
+        
+        /* BILLING & PAYMENT Tables specifically */
+        .inner-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .inner-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .total-row {
+            background-color: #e9f7ef;
+            font-weight: 800;
+            font-size: 16px;
+        }
+        .checkbox-fake {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 1px solid #aaa;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .checkbox-fake.checked {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            margin-top: 20px;
+        }
+        .support-box {
+            background-color: #d1f2eb;
+            color: #117a65;
+            padding: 10px;
+            font-weight: bold;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        .disclaimer {
+            font-size: 11px;
+            color: #888;
+        }
+        /* Uses standard Arial for Rs. symbol to avoid character glitches */
+        .currency { font-family: Arial, sans-serif; font-weight: normal; }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <div class="logo-header">
+        <h1 class="logo-text">MEDI<span>&bull;</span>ZOOM</h1>
+        <p class="tagline">Healthcare at Your Doorstep</p>
+    </div>
+
+    <table class="company-table" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="left">
+                <strong>Lifecore Pharmaceuticals Pvt Ltd</strong><br>
+                <span style="color:#666;">Puducherry</span>
+            </td>
+            <td align="right" valign="top">
+                <span style="color:#555;">GSTIN:</span> <strong>34AAGCL0806Q1ZB</strong>
+            </td>
+        </tr>
+    </table>
+
+    <div class="title-banner">SERVICE REPORT & BILL</div>
+
+    <div class="section-header">&#128174; PATIENT DETAILS</div>
+    <div class="data-box" style="padding: 15px;">
+        <table class="data-table">
+            <tr>
+                <td class="label-cell">&#128100; Patient Name:</td>
+                <td class="value-cell" style="width: 40%;">{{ patient_name }}</td>
+                <td class="label-cell">Age:</td>
+                <td class="value-cell">{{ age }}</td>
+            </tr>
+            <tr>
+                <td class="label-cell">&#128205; Address:</td>
+                <td class="value-cell" colspan="3">{{ address }}</td>
+            </tr>
+            <tr>
+                <td class="label-cell">&#128222; Phone:</td>
+                <td class="value-cell" colspan="3">+91 {{ phone }}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+
+    <table class="split-grid" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="49%" valign="top">
+                <div class="section-header">&#128137; SERVICE DETAILS</div>
+                <div class="data-box" style="padding: 15px;">
+                    <table class="data-table">
+                        <tr>
+                            <td class="label-cell">&#10004; Service Type:</td>
+                            <td class="value-cell" style="width: 100%; border-bottom: none;">{{ service_type }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell" style="padding-top:10px;">Service Provided:</td>
+                            <td class="value-cell" style="border-bottom: none; padding-top:10px;">{{ procedure }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td width="2%"></td>
+            <td width="49%" valign="top">
+                <div class="section-header">&#128104;&#8205;&#9877;&#65039; PROVIDER DETAILS</div>
+                <div class="data-box" style="padding: 15px;">
+                    <table class="data-table">
+                        <tr>
+                            <td class="label-cell">&#128101;</td>
+                            <td class="value-cell" style="width: 100%; border-bottom: none; font-weight: 800;">{{ provider_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label-cell" style="padding-top:10px;">Date:</td>
+                            <td class="value-cell" style="border-bottom: none; padding-top:10px;">{{ date }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br>
+
+    <div class="section-header">&#128188; SERVICE TIMELINE</div>
+    <div class="data-box" style="padding: 10px 15px;">
+        <table width="100%" style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">
+            <tr>
+                <td align="left">Current Status: <span style="color:#27ae60; text-transform: uppercase;">{{ status }}</span></td>
+                <td align="right">Report Generated: <span style="color:#555; font-weight: normal;">{{ date }}</span></td>
+            </tr>
+        </table>
+
+        {% set s = status|lower %}
+        {% set d1 = 'active' if s in ['assigned', 'in progress', 'completed', 'paid', 'pending payment'] else 'pending' %}
+        {% set d2 = 'active' if s in ['in progress', 'completed', 'paid', 'pending payment'] else 'pending' %}
+        {% set d3 = 'active' if s in ['in progress', 'completed', 'paid', 'pending payment'] else 'pending' %}
+        {% set d4 = 'active' if s in ['in progress', 'completed', 'paid', 'pending payment'] else 'pending' %}
+        {% set d5 = 'active' if s in ['completed', 'paid', 'pending payment'] else 'pending' %}
+
+        <table class="timeline-table" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="20%" valign="top">
+                    <div style="position: relative; height: 20px;">
+                        <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid {{ '#27ae60' if d1 == 'active' else '#e5e7eb' }}; z-index: 1;"></div>
+                        <div class="timeline-dot" style="position: relative; z-index: 2; background-color: {{ '#27ae60' if d1 == 'active' else '#e5e7eb' }}; color: {{ '#fff' if d1 == 'active' else 'transparent' }};">&#10004;</div>
+                    </div>
+                    <div style="margin-top: 5px; color: {{ '#111' if d1 == 'active' else '#888' }};">Dispatch</div>
+                    <div class="time-label">{{ created_time }}</div>
+                </td>
+                <td width="20%" valign="top">
+                    <div style="position: relative; height: 20px;">
+                        <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid {{ '#27ae60' if d2 == 'active' else '#e5e7eb' }}; z-index: 1;"></div>
+                        <div class="timeline-dot" style="position: relative; z-index: 2; background-color: {{ '#27ae60' if d2 == 'active' else '#e5e7eb' }}; color: {{ '#fff' if d2 == 'active' else 'transparent' }};">&#10004;</div>
+                    </div>
+                    <div style="margin-top: 5px; color: {{ '#111' if d2 == 'active' else '#888' }};">En-Route</div>
+                    <div class="time-label">--:--</div>
+                </td>
+                <td width="20%" valign="top">
+                    <div style="position: relative; height: 20px;">
+                        <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid {{ '#27ae60' if d3 == 'active' else '#e5e7eb' }}; z-index: 1;"></div>
+                        <div class="timeline-dot" style="position: relative; z-index: 2; background-color: {{ '#27ae60' if d3 == 'active' else '#e5e7eb' }}; color: {{ '#fff' if d3 == 'active' else 'transparent' }};">&#10004;</div>
+                    </div>
+                    <div style="margin-top: 5px; color: {{ '#111' if d3 == 'active' else '#888' }};">Arrived</div>
+                    <div class="time-label">--:--</div>
+                </td>
+                <td width="20%" valign="top">
+                    <div style="position: relative; height: 20px;">
+                        <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid {{ '#27ae60' if d4 == 'active' else '#e5e7eb' }}; z-index: 1;"></div>
+                        <div class="timeline-dot" style="position: relative; z-index: 2; background-color: {{ '#27ae60' if d4 == 'active' else '#e5e7eb' }}; color: {{ '#fff' if d4 == 'active' else 'transparent' }};">&#10004;</div>
+                    </div>
+                    <div style="margin-top: 5px; color: {{ '#111' if d4 == 'active' else '#888' }};">In Progress</div>
+                    <div class="time-label">--:--</div>
+                </td>
+                <td width="20%" valign="top">
+                    <div style="position: relative; height: 20px;">
+                        <div style="position: absolute; top: 50%; left: 0; right: 0; border-top: 2px solid transparent; z-index: 1;"></div>
+                        <div class="timeline-dot" style="position: relative; z-index: 2; background-color: {{ '#27ae60' if d5 == 'active' else '#e5e7eb' }}; color: {{ '#fff' if d5 == 'active' else 'transparent' }};">&#10004;</div>
+                    </div>
+                    <div style="margin-top: 5px; color: {{ '#111' if d5 == 'active' else '#888' }};">Completed</div>
+                    <div class="time-label">{{ completed_time if d5 == 'active' else '--:--' }}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+
+    <table class="split-grid" cellpadding="0" cellspacing="0" style="margin-bottom: 10px;">
+        <tr>
+            <td width="49%" valign="top">
+                <div class="section-header">&#129534; BILLING DETAILS</div>
+                <div class="data-box">
+                    <table class="inner-table">
+                        <tr>
+                            <td>Description</td>
+                            <td align="right" style="font-weight: bold;"><span class="currency">Rs.</span> {{ amount }}</td>
+                        </tr>
+                        <tr>
+                            <td>GST (0%)</td>
+                            <td align="right" style="font-weight: bold;">0</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td style="padding: 12px 10px;">Total Amount</td>
+                            <td align="right" style="padding: 12px 10px;"><span class="currency">Rs.</span> {{ amount }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            
+            <td width="2%"></td>
+            
+            <td width="49%" valign="top">
+                <div class="section-header">&#128179; PAYMENT STATUS</div>
+                <div class="data-box">
+                    <table class="inner-table">
+                        <tr>
+                            <td width="50%">
+                                <span class="checkbox-fake {{ 'checked' if status|lower == 'paid' else '' }}"></span> Paid
+                            </td>
+                            <td width="50%" align="right">
+                                <span class="checkbox-fake {{ '' if status|lower == 'paid' else 'checked' }}"></span> Pending
+                            </td>
+                        </tr>
+                        
+                        {% if status|lower == 'paid' and payment_method %}
+                        <tr>
+                            <td colspan="2" style="color: #555; padding-top: 5px; padding-bottom: 5px;">
+                                Method: <span style="color: #111; font-weight: bold; background-color: #e9f7ef; padding: 2px 6px; border-radius: 4px;">{{ payment_method }}</span>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td colspan="2" style="color: #555;">Transaction ID: <span style="color: #111; font-weight: bold;">{{ transaction_id }}</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 800;">Balance Due:</td>
+                            <td align="right" style="font-weight: 800; font-size: 15px;"><span class="currency">Rs.</span> {{ balance }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="footer">
+        Thank you for choosing <strong>MEDI-ZOOM</strong>
+        
+        <div class="support-box">
+            For support: <span style="color:#333;">+91 98765 43210</span> &nbsp;&#9993;&nbsp; <span style="color:#333;">support@medizoom.in</span>
+        </div>
+        
+        <div class="disclaimer">
+            *This is a digitally generated report and does not require a signature
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
